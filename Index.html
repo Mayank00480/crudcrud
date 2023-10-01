@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    </head>
+    <body>
+        <div style = "height : 500px;width : 500px;position: relative;left:450px;top:100px;">
+        <form id ="addForm">
+            <label for ="expenseAmount"> Expense Amount</label>
+            <input class="form-control" id ="expenseAmount" type="number" style ="border : 2px solid black" aria-label="default input example">
+            <label for ="expenseDescription"> Choose Description</label>
+            <input class="form-control" id ="expenseDescription" type="text" style ="border : 2px solid black" aria-label="default input example">
+            <label for ="expenseCategory"> Choose Category</label>
+            <select class="form-select" id ="expenseCategory" style ="border : 2px solid black" aria-label="Default select example">
+                <option selected>Open this select menu</option>
+                <option value="Movie">Movie</option>
+                <option value="Games">Games</option>
+                <option value="Food">Food</option>
+                <option value="Travel">Travel</option>
+              </select>
+              <input class="form-control mt-3" type="submit" style ="border : 2px solid black" aria-label="default input example">
+        </form>
+        </div>
+        <div style = "position :relative;bottom: 150px;left:420px;">
+            <br>
+            <br>
+            <ul class = "items">
+                
+            </ul>
+            
+        </div>
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.1/axios.min.js"></script>
+        <script src ="script.js"> </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </body>
+</html>
