@@ -10,20 +10,20 @@ function getItems() {
    axios.get('https://crudcrud.com/api/3bc24c6ac950423cae9552291eb6f6a9/createExpense')
    .then((res) => {
       showItems(res.data)
-      console.log(res.data)
+//      console.log(res.data)
    })
    .catch(err => console.log(err))
 }
 function showItems(data){
    data.forEach((data) =>{let list =  document.createElement('li');
-   console.log(1);
+  // console.log(1);
    list.style.listStyleType = 'none'
    list.style.margin = "10px";
    list.appendChild(document.createTextNode(`${data.expenseAmnt} ${data.expenseCatgry} ${data.expenseDescption}`));
    const deleteBtn = document.createElement('button');
    deleteBtn.className = 'delete';
    deleteBtn.textContent = "delete";
-   console.log(deleteBtn);
+   //console.log(deleteBtn);
    deleteBtn.style.position = 'relative';
    deleteBtn.style.left = '30px';
    
@@ -48,7 +48,23 @@ function removeItem(e) {
            let list = [];
            list = data.split(' ');
            console.log(list);
-           expenseCategory.value = list[2];
+           axios.get('https://crudcrud.com/api/3bc24c6ac950423cae9552291eb6f6a9/createExpense')
+           .then(res => {
+            const d = res.data;
+            d.forEach((data) =>{
+               if(data.expenseCatgry === list[1])
+               {
+                  const id = data._id;
+                    axios.delete(`https://crudcrud.com/api/3bc24c6ac950423cae9552291eb6f6a9/createExpense/${id}`)
+                    .then(() => {
+                     console.log(1);
+                    items.innerHTML = '';
+                     getItems();
+                     return 0;
+                    })
+               }
+            })
+           })
           
       }
    }
@@ -61,7 +77,7 @@ function editItem(e) {
       console.log(data);
       let list = [];
       list = data.split(' ');
-      console.log(list)
+    //  console.log(list)
       edit.remove();
 
       expenseAmount.value = list[0];
@@ -83,7 +99,10 @@ else {
       expenseCatgry : `${expenseCategory.value}`,
       expenseDescption : `${expenseDescription.value}`
    })
-   .then(res => console.log(res.data));
-   
+   .then(res =>{ 
+ //     console.log(res.data);
+   items.innerHTML = '';
+   getItems();
+   })
 }
 }
