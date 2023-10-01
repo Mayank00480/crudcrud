@@ -1,12 +1,13 @@
+window.addEventListener("DOMContentLoaded",getItems);
 let expenseAmount = document.getElementById('expenseAmount');
 let expenseDescription = document.getElementById('expenseDescription');
 let expenseCategory = document.getElementById('expenseCategory');
 let items = document.querySelector('ul');
 items.addEventListener('click',removeItem);
 items.addEventListener('click',editItem);
-//document.body.addEventListener("mouseover",getItems);
+
 function getItems() {
-   axios.get('https://crudcrud.com/api/fb3ee0c5881841e78b4cb22afbf6fbe6/createUser')
+   axios.get('https://crudcrud.com/api/3bc24c6ac950423cae9552291eb6f6a9/createExpense')
    .then((res) => {
       showItems(res.data)
       console.log(res.data)
@@ -15,6 +16,7 @@ function getItems() {
 }
 function showItems(data){
    data.forEach((data) =>{let list =  document.createElement('li');
+   console.log(1);
    list.style.listStyleType = 'none'
    list.style.margin = "10px";
    list.appendChild(document.createTextNode(`${data.expenseAmnt} ${data.expenseCatgry} ${data.expenseDescption}`));
@@ -47,7 +49,7 @@ function removeItem(e) {
            list = data.split(' ');
            console.log(list);
            expenseCategory.value = list[2];
-           localStorage.removeItem(expenseCategory.value)
+          
       }
    }
 }
@@ -76,7 +78,7 @@ e.preventDefault();
 if(expenseAmount.value == '' || expenseDescription.value == '' || expenseCategory.value == '') alert("Enter the Values");
 else {
   
-   axios.post('https://crudcrud.com/api/fb3ee0c5881841e78b4cb22afbf6fbe6/createUser',{
+   axios.post('https://crudcrud.com/api/3bc24c6ac950423cae9552291eb6f6a9/createExpense',{
       expenseAmnt : `${expenseAmount.value}`,
       expenseCatgry : `${expenseCategory.value}`,
       expenseDescption : `${expenseDescription.value}`
