@@ -42,12 +42,12 @@ function removeItem(e) {
    {
       if(confirm("Are you sure?"))
       {
-           let del = e.target.parentElement;
+          // let del = e.target.parentElement;
            let data = del.firstChild.textContent;
-           del.remove();
+          // del.remove();
            let list = [];
            list = data.split(' ');
-           console.log(list);
+  //         console.log(list);
            axios.get('https://crudcrud.com/api/3bc24c6ac950423cae9552291eb6f6a9/createExpense')
            .then(res => {
             const d = res.data;
@@ -57,7 +57,7 @@ function removeItem(e) {
                   const id = data._id;
                     axios.delete(`https://crudcrud.com/api/3bc24c6ac950423cae9552291eb6f6a9/createExpense/${id}`)
                     .then(() => {
-                     console.log(1);
+    //                 console.log(1);
                     items.innerHTML = '';
                      getItems();
                      return 0;
@@ -81,9 +81,36 @@ function editItem(e) {
       edit.remove();
 
       expenseAmount.value = list[0];
-      expenseCategory.value = list[2];
-      expenseDescription.value = list[1];
-      localStorage.removeItem(expenseCategory.value)
+      expenseCategory.value = list[1];
+      expenseDescription.value = list[2];
+      let format =  document.getElementById('addForm');
+      format.addEventListener('click',update)
+      function update(e){
+         e.preventDefault();
+         axios.get('https://crudcrud.com/api/3bc24c6ac950423cae9552291eb6f6a9/createExpense')
+           .then(res => {
+            const d = res.data;
+            d.forEach((data) =>{
+               if(data.expenseCatgry === list[1])
+               {
+                  const id = data._id;
+                    axios.put(`https://crudcrud.com/api/3bc24c6ac950423cae9552291eb6f6a9/createExpense/${id}`,{
+                     expenseAmnt : `${list[0]}`,
+                     expenseCatgry : `${list[1]}`,
+                     expenseDescption : `${list[2]}`
+                    })
+                    .then((res) => {
+                     console.log(1);
+                    items.innerHTML = '';
+                     getItems();
+                     return -1;
+                 // after getItems() it should end the progrma but it is not     
+                    })
+               }
+            })
+           })
+      }
+     // localStorage.removeItem(expenseCategory.value)
    }
 
 }
